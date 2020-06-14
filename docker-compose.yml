@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+  app:
+    image: "${PROJECT_NAME}:latest"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+      args:
+        base_build_image: "${BASE_BUILD_IMAGE}"
+        base_app_image: "${BASE_APP_IMAGE}"
+        app_user: "${APP_USER}"
+        app_user_group: "${APP_USER_GROUP}"
+        app_root: ${APP_ROOT}
+        debian_extra_build_packages: "${DEBIAN_EXTRA_BUILD_PACKAGES}"
+        debian_extra_production_packages: "${DEBIAN_EXTRA_PRODUCTION_PACKAGES}"
+        crystal_env: "${CRYSTAL_ENV}"
+        node_env: "${NODE_ENV}"
+    container_name: "app.${PROJECT_NAME}"
+    hostname: "app.${PROJECT_NAME}"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    env_file: .docker_container_default.env
+    environment:
+      DB_HOST: "db.${PROJECT_NAME}"
+      DB_USER_NAME: ${DB_USER_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - app_net
+  db:
+    image: "postgres:${POSTGRES_IMAGE_VERSION}"
+    container_name: "db.${PROJECT_NAME}"
+    hostname: "db.${PROJECT_NAME}"
+    env_file: .docker_container_default.env
+    environment:
+      POSTGRES_DB: postgres
+      # db super user name
+      POSTGRES_USER: ${DB_USER_NAME}
+      # db super user password
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    name: "${PROJECT_NAME}"
+    external: false
+
+volumes:
+  db_data:
+    name: "${PROJECT_NAME}_db_data"
