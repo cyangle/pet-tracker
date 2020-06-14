@@ -24,6 +24,7 @@ services:
       - db
     env_file: .docker_container_default.env
     environment:
+      DATABASE_URL: "postgres://${DB_USER_NAME}:${DB_PASSWORD}@db.${PROJECT_NAME}:5432/postgres"
       DB_HOST: "db.${PROJECT_NAME}"
       DB_USER_NAME: ${DB_USER_NAME}
       DB_PASSWORD: ${DB_PASSWORD}

@@ -16,7 +16,7 @@ ARG app_port="5000"
 ARG dev_ports="5000 6000 1234 26162"
 # alpine system packages required to build and run rails server
 ARG alpine_build_packages=" \
-  build-base curl git vim netcat-openbsd tzdata \
+  build-base curl git vim netcat-openbsd tzdata postgresql-client \
   postgresql-dev readline-dev yaml-dev zlib-dev sqlite-dev \
   bash-completion git-bash-completion colordiff gzip sudo bash openssh stow"
 ARG alpine_production_packages=" \
@@ -60,7 +60,7 @@ RUN apk update && \
     $alpine_build_packages $alpine_extra_build_packages
 # Install yarn and nodejs
 RUN if [ "$install_yarn" = "true" ] ; then \
-    apk add --update --no-cache nodejs yarn ; \
+    apk add --update --no-cache nodejs npm yarn ; \
   fi
 RUN curl -L https://github.com/amberframework/amber/archive/stable.tar.gz | tar xz && \
   cd amber-stable/ && \

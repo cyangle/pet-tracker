@@ -19,11 +19,12 @@ services:
     container_name: "app.${PROJECT_NAME}_dev"
     hostname: "app.${PROJECT_NAME}_dev"
     ports:
-      - "5000:5000"
+      - "5000:3000"
     depends_on:
       - db_dev
     env_file: .docker_container_dev.env
     environment:
+      DATABASE_URL: "postgres://${DB_USER_NAME}:${DB_PASSWORD}@db.${PROJECT_NAME}_dev:5432/postgres"
       DB_HOST: "db.${PROJECT_NAME}_dev"
       DB_USER_NAME: ${DB_USER_NAME}
       DB_PASSWORD: ${DB_PASSWORD}
