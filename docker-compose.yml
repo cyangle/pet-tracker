@@ -5,21 +5,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: builder
+      target: app
       args:
         base_build_image: "${BASE_BUILD_IMAGE}"
         base_app_image: "${BASE_APP_IMAGE}"
         app_user: "${APP_USER}"
         app_user_group: "${APP_USER_GROUP}"
         app_root: ${APP_ROOT}
-        debian_extra_build_packages: "${DEBIAN_EXTRA_BUILD_PACKAGES}"
-        debian_extra_production_packages: "${DEBIAN_EXTRA_PRODUCTION_PACKAGES}"
         crystal_env: "${CRYSTAL_ENV}"
         node_env: "${NODE_ENV}"
     container_name: "app.${PROJECT_NAME}"
     hostname: "app.${PROJECT_NAME}"
     ports:
-      - "5000:5000"
+      - "8080:8080"
     depends_on:
       - db
     env_file: .docker_container_default.env

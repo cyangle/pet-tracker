@@ -18,7 +18,7 @@ Citrine::I18n.configure do |settings|
   # settings.exception_handler = ExceptionHandler.new
 
   # The path from where the translations should be loaded
-  settings.load_path += ["./src/locales"]
+  settings.load_path += ["./config/locales"]
 end
 
 I18n.init

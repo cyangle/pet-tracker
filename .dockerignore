@@ -10,3 +10,7 @@
 /.devcontainer/
 .env
 .docker_container_default.env
+*/node_modules/
+*/lib/
+*/bin/
+*/.encryption_key
