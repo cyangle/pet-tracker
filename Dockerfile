@@ -107,6 +107,7 @@ ARG alpine_extra_production_packages
 # Default env vars and paths set inside the image
 ENV BASE_DOCKER_IMAGE=$base_build_image
 ENV APP_ROOT=$app_root
+ENV APP_PORT=$app_port
 ENV PAGER="less -S"
 # ENV PATH="$app_user_home/.gem/bin:$PATH"
 ENV SHELL="/bin/sh"
@@ -133,7 +134,7 @@ COPY --from=assets /usr/local/bin/amber /usr/local/bin/
 RUN rm -rf lib node_modules spec src
 USER $app_user_uid:$app_user_gid
 EXPOSE $app_port
-HEALTHCHECK --interval=1m --timeout=3s --start-period=20s --retries=5 \
+HEALTHCHECK --interval=1m --timeout=5s --start-period=20s --retries=5 \
   CMD curl -f http://localhost:$APP_PORT/ || exit 1
 # Simple init for container
 ENTRYPOINT ["/sbin/tini", "--"]
