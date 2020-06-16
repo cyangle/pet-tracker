@@ -17,10 +17,10 @@ ARG app_port="8080"
 ARG dev_ports="5000 6000 1234 26162"
 # alpine system packages required to build and run rails server
 ARG alpine_build_packages=" \
-  build-base curl git vim netcat-openbsd tzdata postgresql-client \
-  postgresql-dev readline-dev yaml-dev zlib-dev sqlite-dev \
+  build-base gdb curl git vim netcat-openbsd tzdata postgresql-client \
+  postgresql-dev readline-dev yaml-dev zlib-dev sqlite-dev sqlite-static \
   bash-completion git-bash-completion colordiff gzip sudo bash openssh stow"
-ARG alpine_production_packages="tini tzdata"
+ARG alpine_production_packages="tini tzdata curl"
 # You can install extra system packages at build time by setting this var
 ARG alpine_extra_build_packages=""
 ARG alpine_extra_production_packages=""
@@ -47,9 +47,8 @@ ENV PAGER="less -S"
 ENV SHELL="/bin/bash"
 ENV CRYSTAL_ENV=$crystal_env
 ENV NODE_ENV=$node_env
-ENV BUNDLE_APP_CONFIG="$APP_ROOT/.bundle"
-ENV APP_NODE_PATH="$APP_ROOT/node_modules"
-ENV BUNDLE_PATH="$APP_ROOT/vendor/bundle"
+ENV APP_NODE_MODULES_PATH="$APP_ROOT/node_modules"
+ENV APP_LIB_PATH="$APP_ROOT/lib"
 # Reset user to root
 USER root:root
 # Install packages
@@ -63,15 +62,15 @@ RUN if [ "$install_yarn" = "true" ] ; then \
   fi
 RUN curl -L https://github.com/amberframework/amber/archive/stable.tar.gz | tar xz && \
   cd amber-stable/ && \
-  make && \
-  make install
+  shards install --production && \
+  crystal build -o /usr/local/bin/amber src/amber/cli.cr --release --static -p --no-debug
 # Add app user group
 RUN addgroup --gid $app_user_gid $app_user_group && \
     adduser -D -u $app_user_uid -G $app_user_group $app_user && \
     addgroup $app_user wheel && \
     echo "%wheel ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-RUN mkdir -p $APP_NODE_PATH && \
-  mkdir -p $BUNDLE_PATH && \
+RUN mkdir -p $APP_NODE_MODULES_PATH && \
+  mkdir -p $APP_LIB_PATH && \
   mkdir -p $app_user_home && \
   chown -R $app_user_uid:$app_user_gid $app_user_home && \
   chown -R $app_user_uid:$app_user_gid $APP_ROOT
@@ -129,7 +128,7 @@ RUN mkdir -p $app_user_home && \
   chown -R $app_user_uid:$app_user_gid $APP_ROOT
 WORKDIR $APP_ROOT
 COPY --chown=$app_user_uid:$app_user_gid pet-tracker/ ./
-COPY --chown=$app_user_uid:$app_user_gid --from=assets $APP_ROOT/bin bin
+COPY --chown=$app_user_uid:$app_user_gid --from=assets $APP_ROOT/bin/pet-tracker bin/
 COPY --from=assets /usr/local/bin/amber /usr/local/bin/
 RUN rm -rf lib node_modules spec src
 USER $app_user_uid:$app_user_gid

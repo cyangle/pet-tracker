@@ -32,6 +32,7 @@
   "postCreateCommand": "sudo chown -R 1000:1000 /home/crystal",
   // Add the IDs of extensions you want installed when the container is created in the array below.
   "extensions": [
+    "webfreak.debug",
     "faustinoaq.crystal-lang",
     "robinbentley.sass-indented",
     "formulahendry.auto-complete-tag",

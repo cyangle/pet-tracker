@@ -39,8 +39,8 @@ services:
         volume:
           nocopy: true
       - type: volume
-        source: app_vendor_bundle
-        target: "${APP_ROOT}/vendor/bundle"
+        source: app_lib
+        target: "${APP_ROOT}/lib"
         consistency: cached
         volume:
           nocopy: true
@@ -84,7 +84,7 @@ volumes:
     name: "${PROJECT_NAME}_dev_db_data"
   app_node_modules:
     name: "${PROJECT_NAME}_app_node_modules_dev"
-  app_vendor_bundle:
-    name: "${PROJECT_NAME}_app_vendor_bundle_dev"
+  app_lib:
+    name: "${PROJECT_NAME}_app_lib_dev"
   app_home:
     name: "${PROJECT_NAME}_app_home_dev"

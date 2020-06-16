@@ -14,3 +14,6 @@
 */lib/
 */bin/
 */.encryption_key
+*/Dockerfile
+*/docker-compose.yml
+/.devcontainer/
