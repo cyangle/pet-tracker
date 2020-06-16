@@ -17,6 +17,7 @@ ARG app_port="8080"
 ARG dev_ports="5000 6000 1234 26162"
 # alpine system packages required to build and run rails server
 ARG alpine_build_packages=" \
+  libunwind-dev \
   build-base gdb curl git vim netcat-openbsd tzdata postgresql-client \
   postgresql-dev readline-dev yaml-dev zlib-dev sqlite-dev sqlite-static \
   bash-completion git-bash-completion colordiff gzip sudo bash openssh stow"

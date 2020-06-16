@@ -20,6 +20,10 @@ services:
     hostname: "app.${PROJECT_NAME}_dev"
     ports:
       - "5000:3000"
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
     depends_on:
       - db_dev
     env_file: .docker_container_dev.env
