@@ -4,8 +4,8 @@ ARG base_build_image="crystallang/crystal:latest-alpine"
 # Need to redeclare ARG env vars defined before FROM instruction in order to use it
 # ARG env vars are only available during building the image
 ARG base_app_image="alpine:3.11"
-ARG app_user=crystal
-ARG app_user_group=crystal
+ARG app_user=alpine
+ARG app_user_group=alpine
 ARG app_user_uid=1000
 ARG app_user_gid=1000
 ARG app_user_home="/home/$app_user"
