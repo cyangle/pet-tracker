@@ -46,7 +46,7 @@
       "args": [],
       "cwd": "${workspaceFolder}/pet-tracker",
       "initCommands": [
-        "command script import ${workspaceFolder}/crystal_formatters.py"
+        "command script import /usr/local/etc/crystal_formatters.py"
       ]
     }
   ]

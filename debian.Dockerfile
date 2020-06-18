@@ -72,6 +72,7 @@ RUN curl -L https://github.com/amberframework/amber/archive/stable.tar.gz | tar 
   cd amber-stable/ && \
   shards install --production && \
   crystal build -o /usr/local/bin/amber src/amber/cli.cr --release --static -p --no-debug
+RUN curl -L https://raw.githubusercontent.com/crystal-lang/crystal/master/etc/lldb/crystal_formatters.py -o /usr/local/etc/crystal_formatters.py
 # Add app user group
 RUN addgroup --gid $app_user_gid $app_user_group && \
     adduser --gecos "" --disabled-password --uid $app_user_uid --gid $app_user_gid $app_user && \
