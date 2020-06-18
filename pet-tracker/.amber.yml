@@ -10,9 +10,9 @@ watch:
     # commands will be joined with && (join them yourself if need || or ;)
     build_commands:
       - mkdir -p bin
-      - crystal build ./src/pet-tracker.cr -o bin/pet-tracker
+      - crystal build -d ./src/pet-tracker.cr -o bin/pet-tracker
     run_commands:
-      - bin/pet-tracker
+      - ./start_lldb_debug_session.sh
     include:
       - ./config/**/*.cr
       - ./config/environments/*.yml

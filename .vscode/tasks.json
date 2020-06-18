@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+      "label": "build pet-tracker (debug)",
+			"type": "shell",
+			"options": {
+      "cwd": "${workspaceRoot}/pet-tracker",
+			},
+      "command": "shards build pet-tracker --debug --link-flags '-lunwind'"
+    }
+	]
+}

@@ -6,7 +6,12 @@ class PetController < ApplicationController
   end
 
   def index
-    pets = Pet.all
+    pets = Pet.all.to_a
+    # name = pets.try &.first.name
+    if pets.empty?
+      puts "no pets found"
+    end
+    name = "abc"
     render "index.slang"
   end
 
