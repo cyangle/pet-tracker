@@ -85,9 +85,9 @@ CMD echo 'Stage: builder'
 FROM builder AS assets
 ARG app_user_uid
 ARG app_user_gid
-COPY --chown=$app_user_uid:$app_user_gid pet-tracker/shard.yml pet-tracker/shard.lock ./
+COPY --chown=$app_user_uid:$app_user_gid shard.yml shard.lock ./
 RUN shards install --production 
-COPY --chown=$app_user_uid:$app_user_gid pet-tracker .
+COPY --chown=$app_user_uid:$app_user_gid . .
 RUN shards build pet-tracker --release --static
 ############### assets stage end ###############
 

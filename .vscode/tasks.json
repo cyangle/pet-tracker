@@ -5,7 +5,7 @@
       "label": "build pet-tracker (debug)",
 			"type": "shell",
 			"options": {
-      "cwd": "${workspaceRoot}/pet-tracker",
+      "cwd": "${workspaceRoot}/",
 			},
       "command": "shards build pet-tracker --debug --link-flags '-lunwind'"
     }
