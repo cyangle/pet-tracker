@@ -57,6 +57,7 @@ USER root:root
 RUN sed -i 's/kernel.yama.ptrace_scope = 1/kernel.yama.ptrace_scope = 0/' /etc/sysctl.d/10-ptrace.conf
 # Install packages
 RUN apt-get update && \
+    apt-mark hold crystal && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
     $debian_build_packages $debian_extra_build_packages

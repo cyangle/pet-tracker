@@ -2,20 +2,21 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-      "label": "build pet-tracker release",
+			"label": "build pet-tracker release",
 			"type": "shell",
 			"options": {
-      "cwd": "${workspaceRoot}/",
+				"cwd": "${workspaceRoot}/"
 			},
-      "command": "docker-compose build"
-    },
+			"command": "docker-compose build"
+		},
 		{
-      "label": "amber watch",
+			"label": "amber watch",
 			"type": "shell",
 			"options": {
-      "cwd": "${workspaceRoot}/",
+				"cwd": "${workspaceRoot}/"
 			},
-      "command": "amber watch"
-    }
+			"command": "amber watch",
+			"problemMatcher": []
+		}
 	]
 }
