@@ -3,7 +3,7 @@
 source_dir=$(dirname $0)
 cd $source_dir
 
-echo "in listen" >> vscode.log
+echo "in listen"
 
 screen -ls pet_tracker_pipe | grep -i 'No Sockets found'
 if [ $? -eq 0 ] ; then
