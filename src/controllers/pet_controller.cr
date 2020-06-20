@@ -11,7 +11,7 @@ class PetController < ApplicationController
     if pets.empty?
       puts "no pets found"
     end
-    name = "abc"
+    # name = "abc"
     render "index.slang"
   end
 
