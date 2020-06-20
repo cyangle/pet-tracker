@@ -17,7 +17,6 @@ ARG app_port="8080"
 ARG dev_ports="5000 6000 1234 26162"
 # alpine system packages required to build and run rails server
 ARG alpine_build_packages=" \
-  libunwind-dev lldb yaml-static \
   build-base gdb curl git vim netcat-openbsd tzdata postgresql-client \
   postgresql-dev readline-dev yaml-dev zlib-dev sqlite-dev sqlite-static \
   bash-completion git-bash-completion colordiff gzip sudo bash openssh stow"
@@ -129,7 +128,7 @@ RUN mkdir -p $app_user_home && \
   chown -R $app_user_uid:$app_user_gid $app_user_home && \
   chown -R $app_user_uid:$app_user_gid $APP_ROOT
 WORKDIR $APP_ROOT
-COPY --chown=$app_user_uid:$app_user_gid pet-tracker/ ./
+COPY --chown=$app_user_uid:$app_user_gid . .
 COPY --chown=$app_user_uid:$app_user_gid --from=assets $APP_ROOT/bin/pet-tracker bin/
 COPY --from=assets /usr/local/bin/amber /usr/local/bin/
 RUN rm -rf lib node_modules spec src

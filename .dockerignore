@@ -4,7 +4,7 @@
 /coverage
 /.bundle
 /log/*
-/local/
+*local/
 /build/
 /.vscode/
 /.devcontainer/
