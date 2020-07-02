@@ -12,6 +12,7 @@
       "program": "${workspaceRoot}/bin/pet-tracker",
       "args": [],
       "cwd": "${workspaceRoot}/",
+      "console": "internalConsole",
       "initCommands": [
         "command script import /usr/local/etc/crystal_formatters.py"
       ]
