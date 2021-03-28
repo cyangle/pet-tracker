@@ -7,7 +7,7 @@ services:
       dockerfile: debian.Dockerfile
       target: builder
       args:
-        base_build_image: "crystal:0.35.1-ubuntu-20.04"
+        base_build_image: "crystal:1.0.0-ubuntu-20.04"
         base_app_image: "ubuntu:20.04"
         app_user: "debian"
         app_user_group: "debian"

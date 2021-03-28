@@ -10,7 +10,7 @@ watch:
     # commands will be joined with && (join them yourself if need || or ;)
     build_commands:
       - mkdir -p bin
-      - crystal build -d ./src/pet-tracker.cr -o bin/pet-tracker
+      - shards build pet-tracker -d
     run_commands:
       - ./start_lldb_debug_session.sh
     include:

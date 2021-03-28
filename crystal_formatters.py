@@ -1,3 +1,4 @@
+import pdb
 import lldb
 
 class CrystalArraySyntheticProvider:
@@ -11,7 +12,7 @@ class CrystalArraySyntheticProvider:
             self.valobj = self.valobj.Dereference()
         self.size = int(self.valobj.child[0].value)
         self.type = self.valobj.type
-        self.buffer = self.valobj.child[2]
+        self.buffer = self.valobj.child[3]
 
     def num_children(self):
         size = 0 if self.size is None else self.size
@@ -42,15 +43,24 @@ def findType(name, module):
             return type
     return None
 
+def safe_int(value):
+    if value == None:
+        return 0
+    else:
+        return int(value)
 
 def CrystalString_SummaryProvider(value, dict):
     error = lldb.SBError()
     if value.TypeIsPointerType():
         value = value.Dereference()
     process = value.GetTarget().GetProcess()
-    byteSize = int(value.child[0].value)
-    len = int(value.child[1].value)
+    byteSize = safe_int(value.child[0].value)
+    len = safe_int(value.child[1].value)
     len = byteSize or len
+    if len <= 0 or len > 255:
+        return 'invalid length: {}'.format(len)
+    # print('byteSize: {}'.format(len))
+    # pdb.set_trace()
     strAddr = value.child[2].load_addr
     val = process.ReadCStringFromMemory(strAddr, len + 1, error)
     return '"%s"' % val
