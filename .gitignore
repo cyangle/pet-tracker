@@ -39,6 +39,7 @@ yarn-debug.log*
 /vendor/bundle
 local/
 
+/run/
 /doc/
 /lib/
 /.crystal/

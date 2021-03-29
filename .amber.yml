@@ -12,7 +12,7 @@ watch:
       - mkdir -p bin
       - shards build pet-tracker -d
     run_commands:
-      - ./start_lldb_debug_session.sh
+      - echo $(date) > ./local/debug.txt
     include:
       - ./config/**/*.cr
       - ./config/environments/*.yml

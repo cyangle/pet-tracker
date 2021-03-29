@@ -3,7 +3,7 @@ services:
   app_dev:
     image: "${PROJECT_NAME}:dev"
     build:
-      context: ..
+      context: .
       dockerfile: debian.Dockerfile
       target: builder
       args:
@@ -29,6 +29,7 @@ services:
       - db_dev
     env_file: .docker_container_dev.env
     environment:
+      HOST_OSTYPE: ${OSTYPE}
       DATABASE_URL: "postgres://${DB_USER_NAME}:${DB_PASSWORD}@db.${PROJECT_NAME}_dev:5432/postgres"
       DB_HOST: "db.${PROJECT_NAME}_dev"
       DB_USER_NAME: ${DB_USER_NAME}
@@ -56,7 +57,7 @@ services:
         volume:
           nocopy: true
       - type: bind
-        source: ..
+        source: .
         target: "/home/debian/app"
         consistency: cached
       # Uncomment the next line to use Docker from inside the container. See https://aka.ms/vscode-remote/samples/docker-in-docker-compose for details.

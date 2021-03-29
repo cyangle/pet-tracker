@@ -29,14 +29,16 @@
   // Uncomment the next line if you want to keep your containers running after VS Code shuts down.
   // "shutdownAction": "none",
   "initializeCommand": [
-    "/bin/sh",
-    "listen_to_command_pipe_in_screen.sh"
+    // "/bin/sh",
+    // "listen_to_command_pipe_in_screen.sh"
   ],
   // Uncomment the next line to run commands after the container is created - for example installing git.
   "postCreateCommand": "sudo chown -R 1000:1000 /home/debian",
+  "shutdownAction": "stopCompose",
   // Add the IDs of extensions you want installed when the container is created in the array below.
   "extensions": [
     "vadimcn.vscode-lldb",
+    "cyangle.vscode-save-and-run-built-in-commands",
     "webfreak.debug",
     "crystal-lang-tools.crystal-lang",
     "robinbentley.sass-indented",

@@ -7,7 +7,8 @@ pipe=$source_dir/local/docker_host.pipe
 
 echo "Create pipe for shell commands from dev container to execute"
 
-[ -p "$pipe" ] || mkfifo -m 0600 "$pipe" || exit 1
+[ -p "$pipe" ] || mkfifo -m 0666 "$pipe" || exit 1
+
 echo "wait for shell commands from dev container to execute"
 while true; do
     while read -r cmd; do
